@@ -1,0 +1,65 @@
+■■■ JDBC 사전설정 및 주의사항 ■■■
+
+○ 해당 워크스테이션에 오라클이 설치된 경우(학습 환경)
+
+   - 시스템의 classPath 를 다음과 같이 생성 및 변경
+     
+     (11g Express Edition 설치 경로가 c:\oracleexe 인 경우...)
+     .;C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc6.jar
+	
+     (10g Enterprise/Standard Edition 설치 경로가 c:\oracle 인 경우...)
+     .;C;\oralce\product\10.x.x\db_x\jdbc\lib\ojdbc14.jar
+     --@ x는 각 다른 숫자...버전\오라클 설치숫자\ojdbc0.jar <- 각각 버전일 경우 숫자는 달라질수 있음
+
+
+○ 해당 워크스테이션에 오라클이 설치되어 있지 않은 경우(실무 환경)
+--@ 다른곳에 오라클 설치, 원격지에서 끌어다 쓰는 경우가 많음
+
+   - Oracle 용 JDBC 드라이버를 다운로드 해야 한다.
+    
+     가. 다운로드 경로
+         ① http://www.oracle.com/database/technologies/appdev/jdbc.html 이동
+	 -@ http : 그냥 일반 프로토콜, https : 보안 프로토콜
+         -@ 위치가 10번 바뀌면 경로는 1번 바뀜... 경로는 알아 두는게 좋음!
+         ② 페이지 중간에 Get Started 항목의 JDBC Download 버튼 클릭
+         ③ 현재 (2021년 9월 27일 기준) 다운로드 제공하지 않음.
+         -@ 오라클 회사는 새로운 버전을 팔아먹어야 하는 구조...
+         -@ 그래서 제일 많이 쓰는 버전을 최대한 숨겨 놓음
+    
+     나. 파일명
+         『ojdbc6.jar』 또는 『ojdbc14.jar』 파일
+
+     다. 시스템의 classPath 에 변수값으로 ojdbc6.jar(ojdbc14.jar)
+         파일 추가(경로 포함)
+
+※ 공통
+   - JDBC 드라이버 설치를 위한 ojdbc.jar(ojdbc14.jar) 파일을
+     다음의 경로에 복사&붙여넣기
+
+     가. C:\Program Files\Java\jdk1.8.0_281\jre\lib\ext
+     나. C:\Program Files\Java\jre1.8.0_281\lib\ext
+
+
+※ JSP 실습을 위한 추가 설정
+   - 웹 서버에서 실질적으로 Oracle 용 JDBC 드라이버를 찾는 경로는
+     『아파치톰캣루트\lib』이기 때문에 『ojdbc6.jar』 파일을
+     이 경로에 복사&붙여넣기 한다.
+
+   - 아파치 톰캣 다운로드 경로 → http://tomcat.apache.org
+   -@ 왼쪽 download 아래... binary Distrbutions-Core 의 zip 다운받으면 됨!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
