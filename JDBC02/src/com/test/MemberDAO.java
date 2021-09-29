@@ -28,6 +28,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.util.DBConn;
 
@@ -98,6 +99,9 @@ public class MemberDAO
 	}// end add()
 		
 	
+	// 내가 작성한 코드
+	
+	/*
 	// 메소드 정의 → 전체 인원 수 확인 기능
 	public ResultSet count(MemberDTO dto) throws SQLException
 	{
@@ -122,12 +126,159 @@ public class MemberDAO
 	}
 	
 	// 메소드 정의 → 전체 리스트 조회 기능
-	public ResultSet lists()
+	public ResultSet lists(MemberDTO dto) throws SQLException
 	{
-		//
-		//
-		//
+		// 작업 객체 생성
+		Statement stmt = conn.createStatement();
 		
+		// 쿼리문 준비
+		String sql = "SELECT SID, NAME, TEL FROM TBL_MEMBER ORDER BY SID";
+		
+		// 작업 객체를 활용하여 쿼리문 실행(전달)
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		// 사용한 리소스 반납
+	    stmt.close();
+	    
+	    // 최종 결과값 반환
+	    return rs;
+	}
+	
+}
+*/
+	// 함께 작성한 코드
+	//메소드 정의 → 전체 인원 수 확인 기능
+	public int count() throws SQLException
+	{
+		// 결과값으로 반환하게 될 변수 선언 및 초기화
+		int result = 0;
+		
+		// 작업 객체 생성
+		Statement stmt = conn.createStatement();
+		
+		// 쿼리문 준비 → select
+		String sql = "SELECT COUNT(*) AS COUNT FROM TBL_MEMBER";
+		
+		// 생성된 작업 객체를 활용하여 쿼리문 실행 → select → executeQuery() → ResultSet 반환 → 일반적 반복 처리
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		// ResultSet 처리 → 반복문 구성 → 결과값 수신
+		//@ 아 ResultSet 썼네? 그럼 while 반복문... 해도 큰 상관 없음
+		//@ ResultSet 관리하는동안 커넥션은 연결되어야(살아있어야) 한다.
+		while (rs.next())					// if (rs.next())
+		{
+			result = rs.getInt("COUNT");	// rs.getInt(1);	// ※ 컬럼 인덱스는 1 부터.. (@ 0부터 아님!)
+			//@ COUNT 컬럼의 값 정수로 얻어내겠다.
+		}
+		
+		// 리소스 반납
+		//@ 보통 먼저 얻어쓴 걸 나중에 반납함.
+		rs.close();
+		stmt.close();
+
+		// 최종 결과값 반환
+		return result;
+		
+	}// end count()
+	
+	/*
+	// 내가 작성한 코드 2
+	//메소드 정의 → 전체 리스트 조회 기능
+	public String lists() throws SQLException
+	{
+		// 결과값으로 반환하게 될 변수 선언 및 초기화
+		String result = " ";
+		
+		// 작업 객체 생성
+		Statement stmt = conn.createStatement();
+		
+		// 쿼리문 준비 → select
+		String sql = "SELECT SID, NAME, TEL FROM TBL_MEMBER ORDER BY SID";
+		
+		// 생성된 작업 객체를 활용하여 쿼리문 실행 → select → excuteQuery() → ResultSet 반환 → 일반적 반복 처리
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		// ResultSet 처리 → 반복문 구성 → 결과값 수신
+		while (rs.next())
+		{
+			String sid = rs.getString("SID");
+			String name = rs.getString("NAME");
+			String tel = rs.getString("TEL");
+			
+			String str = String.format("%3s %5s %7s", sid, name, tel);
+			System.out.println(str);
+		}
+		
+		// 리소스 반납
+		rs.close();
+		stmt.close();
+		
+		// 최종 결과값 반환
+		return result;
+		
+	}
+	*/
+	
+	//메소드 정의 → 전체 리스트 조회 기능
+	//@ 작업을 부탁받음! 거래처와의 협업 전담....
+	//@ 혼자 가져다주고 끝나는게 아니라 나 전해줬어! 하고 유동이한테 전달해줘야함
+	//@ 직접 출력하는게 아니라, list()에게 부탁하니까 그값을 반환자료 형태로 전달해줘야함
+	//@ 그래서 void 아님!
+	//@ NAME 컬럼 가져다 줘! → String    / 여러개 NAME 컬럼: String들, String[], ArrayList<String>
+	//@ 전체 컬럼 가져다 줘! → MemberDTO / 여러개 컬럼 : MemberDTO들, ArrayList<MemberDTO> 
+	//@                                                                - MemberDTO를 반환할수있는 자료구조 반환
+	public ArrayList<MemberDTO> lists() throws SQLException
+	{
+		//@ 틀 잘 잡기!
+		// 결과값으로 반환할 변수 선언 및 초기화
+		ArrayList<MemberDTO> result = new ArrayList<MemberDTO>();
+		
+		// 작업 객체 생성
+		Statement stmt = conn.createStatement();
+		
+		// 쿼리문 준비
+		String sql = "SELECT SID, NAME, TEL FROM TBL_MEMBER ORDER BY SID";
+		
+		// 생성된 작업 객체를 활용하여 쿼리문 실행 → select → executeQuery() → ResultSet 반환
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		// ResultSet 처리 → 일반적 반복문 활용 → MemberDTO 인스턴스 생성 → 속성 구성 → ArrayList 에 적재
+		//@ 아 ResultSet 썼네? 그럼 while 반복문 쓰자! 해도 상관없을 만큼 같이 다님
+		//@ 값 출력이 아니라 반환할 것.... MemberDTO들...
+		//@ while 한번 반환할때마다 하나의 MemberDTO 가 만들어 질 것...
+		//@ 가장 먼저 MemberDTO 대한 인스턴스 생성 필요
+		while (rs.next())
+		{
+			//@ 반복문 돌 때마다 MemberDTO 인스턴스 생성
+			//@ like 사과장수.... 그래서 MemberDTO들로 합쳐짐(첫번째, 두번째, 세번째 사과장수...)
+			MemberDTO dto = new MemberDTO();
+			
+			//@ 받아온 1번 dto에 넣어줌
+			//@ 받아온 홍길동 dto에 넣어줌
+			//@ 받아온 010-1111-1111 dto에 넣어줌
+			//@ -->> 빈 껍데기였던 dto에 내용 채워짐
+			dto.setSid(rs.getString("SID"));
+			dto.setName(rs.getString("NAME"));
+			dto.setTel(rs.getString("TEL"));
+			
+			result.add(dto);
+
+		}
+		
+		// 리소스 반납
+		rs.close();
+		stmt.close();
+		
+		// 최종 결과값 반환
+		return result;
+		
+	}//end lists()
+	
+
+	// 메소드 정의 → 데이터베이스 연결 종료 → DBConn 활용
+	public void close() throws SQLException
+	{
+		DBConn.close();
 	}
 	
 }
@@ -141,6 +292,8 @@ public class MemberDAO
 
 
 
-
-
-
+	
+	
+	
+	
+	

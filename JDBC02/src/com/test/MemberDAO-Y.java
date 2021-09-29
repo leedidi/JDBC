@@ -2,6 +2,7 @@
   		MemberDTO.java
 ==============================*/
 
+/*
 // ▶ DAO : 오라클과 협업해서 기능구현 하는 메소드들로 구성
 // ▶ 즉, 쿼리문은 이 안에만 있다. 
 // ▶ DB 연결
@@ -20,7 +21,7 @@
 
 // 전체 리스트 조회하는 기능
 // 대상 테이블(TBL_MEMBER)의 데이터를 조회하는 기능 → SELECT
-
+/*
 package com.test;
 
 import java.sql.Connection;
@@ -53,7 +54,8 @@ public class MemberDAO
 		
 		// 연결 객체 활용 Statement 작업 객체 생성  
 		Statement stmt = conn.createStatement();
-		
+*/
+
 		/*
 		 ※ Statement 의 종류
 		 	- Statement 
@@ -72,6 +74,7 @@ public class MemberDAO
 			재사용이 가능한 그릇은 PreparedStatement 이다.
 		*/
 		
+		/*
 		// 쿼리문 준비
 		String sql = String.format("INSERT INTO TBL_MEMBER(SID, NAME, TEL)"
 								 + " VALUES(MEMBERSEQ.NEXTVAL, '%s', '%s')"
@@ -113,4 +116,4 @@ public class MemberDAO
 
 
 }
-
+*/

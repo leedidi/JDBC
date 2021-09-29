@@ -32,3 +32,14 @@ ORDER BY SID;
 SELECT SID, NAME, TEL FROM TBL_MEMBER ORDER BY SID
 ;
 
+
+
+
+
+
+
+
+
+
+
+
