@@ -21,7 +21,32 @@ public class MemberDTO
 	
 	private String empName, ssn, ibsaDate, tel;
 	private int empId, cityId, buseoId, jikwiId, basicPay, sudang, totalPay;
+	private String buseoName, jikwiName, cityName;
 	
+	public String getCityName()
+	{
+		return cityName;
+	}
+	public void setCityName(String cityName)
+	{
+		this.cityName = cityName;
+	}
+	public String getBuseoName()
+	{
+		return buseoName;
+	}
+	public void setBuseoName(String buseoName)
+	{
+		this.buseoName = buseoName;
+	}
+	public String getJikwiName()
+	{
+		return jikwiName;
+	}
+	public void setJikwiName(String jikwiName)
+	{
+		this.jikwiName = jikwiName;
+	}
 	public String getEmpName()
 	{
 		return empName;
