@@ -66,6 +66,9 @@ public class DBConn
 				System.out.println(e.toString());
 			}
 		}
+		
+		dbConn = null;
+		
 	}//end close()
 	
 	

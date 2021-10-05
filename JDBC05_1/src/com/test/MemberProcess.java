@@ -85,6 +85,7 @@ public class MemberProcess
 				String buseoName = sc.next();
 				System.out.println("직위(");
 				// 사장/전무/상무/이사/부장/차장/과장/대리/사원/
+				//@ DAO 에 메소드를 하나 더 구성!
 				System.out.println(") : ");
 				String jikwiName = sc.next();
 				System.out.println("기본급(최소 ");

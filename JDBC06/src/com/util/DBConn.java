@@ -1,0 +1,152 @@
+/*================
+   DBConn.java
+================= */
+// try ~ catch 사용 DBConn 설계
+
+/*
+package com.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DBConn
+{
+	private static Connection dbConn;
+	
+	public static Connection getConnection()
+	{
+		if (dbConn == null)
+		{
+			try
+			{
+				String url = "jdbc:oracle:thin:@localhost:1521:xe";
+				String user = "scott";
+				String pwd = "tiger";
+				
+				Class.forName("Oracle.jdbc.driver.OracleDriver");
+				
+				dbConn = DriverManager.getConnection(url, user, pwd);
+				
+			} catch (Exception e)
+			{
+				System.out.println(e.toString());
+			}
+		}
+		
+		return dbConn;
+	}// end getConnection()
+	
+	
+	public static Connection getConnection(String url, String user, String pwd)
+	{
+		if (dbConn == null)
+		{
+			try
+			{
+				Class.forName("oracle.jdbc.driver.OracleDriver");
+				dbConn = DriverManager.getConnection(url, user, pwd);
+			} catch (Exception e)
+			{
+				System.out.println(e.toString());
+			}
+		}
+		return dbConn;
+	}//end getConnection(String url, String user, String pwd)
+	
+	
+	public static void close()
+	{
+		if (dbConn != null)
+		{
+			try
+			{
+				if(!dbConn.isClosed())
+					dbConn.close();
+				
+			} catch (Exception e)
+			{
+				System.out.println(e.toString());
+			}
+			
+		}
+		
+		//@ 자주 빼먹을 수 있음 주의!
+		dbConn = null;
+	}// end close()
+
+}// end DBConn
+// 뭔가 틀려서 안되는데 왜 안되는지 이유를 몰겠음,,,, Driver 어디서 오타같은데...
+*/
+
+package com.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DBConn
+{
+	private static Connection dbConn;
+	
+	public static Connection getConnection()
+	{
+		if (dbConn == null)
+		{
+			try
+			{
+				String url = "jdbc:oracle:thin:@localhost:1521:xe";
+				String user = "scott";
+				String pwd = "tiger";
+				
+				Class.forName("oracle.jdbc.driver.OracleDriver");
+				
+				dbConn = DriverManager.getConnection(url, user, pwd);
+				
+			} catch (Exception e)
+			{
+				System.out.println(e.toString());
+			}
+		}
+		return dbConn;
+		
+	}// end getConnection()
+	
+	public static Connection getConnection(String url, String user, String pwd)
+	{
+		if (dbConn == null)
+		{
+			try
+			{
+				Class.forName("oracle.jdbc.driver.OracleDriver");
+				dbConn = DriverManager.getConnection(url, user, pwd);
+			} catch (Exception e)
+			{
+				System.out.println(e.toString());
+			}
+		}
+		return dbConn;
+		
+	}// end getConnection(String url, String user, String pwd)
+	
+	public static void close()
+	{
+		if (dbConn != null)
+		{
+			try
+			{
+				if (!dbConn.isClosed())
+					dbConn.close();
+				
+			} catch (Exception e)
+			{
+				System.out.println(e.toString());
+			}
+		}
+		
+		// 중요~!!!
+		//@ 이부분이 누락됐었음~!!! 이부분 dbConn에서 가장 중요한 부분임!
+		dbConn = null;
+		
+	}//end close()
+	
+	
+}// end DBConn

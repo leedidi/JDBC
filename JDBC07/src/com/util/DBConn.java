@@ -1,7 +1,7 @@
-/*=====================
-    DBConn.java
- - 예외는 try~catch 
-=====================*/
+/*================
+   DBConn.java
+================= */
+// try ~ catch 사용 DBConn 설계
 package com.util;
 
 import java.sql.Connection;
@@ -29,9 +29,10 @@ public class DBConn
 			{
 				System.out.println(e.toString());
 			}
+			
 		}
 		return dbConn;
-		
+	
 	}// end getConnection()
 	
 	public static Connection getConnection(String url, String user, String pwd)
@@ -66,22 +67,12 @@ public class DBConn
 			}
 		}
 		
-		// 중요~!!!
-		//@ 이부분이 누락됐었음~!!! 이부분 dbConn에서 가장 중요한 부분임!
+		// 자주 빼먹을 수 있음 주의!
 		dbConn = null;
 		
-	}//end close()
-	
-	
-}// end DBConn
+	}// end close()
 
-
-
-
-
-
-
-
+}// end DBConn()
 
 
 
