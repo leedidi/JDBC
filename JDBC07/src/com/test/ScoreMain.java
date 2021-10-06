@@ -1,6 +1,7 @@
 /*===================
     ScoreMain.java
 =====================*/
+//@ 나머지는 테스트 했고... 5번 성적 삭제기능 테스트 -> 테스트 완료......!
 /*
 ○ 성적 처리 → 데이터베이스 연동(데이터베이스 연결 및 액션 처리)
                 ScoreDTO 클래스 활용(속성만 존재하는 클래스, getter / setter 구성)
@@ -75,7 +76,78 @@
 
 package com.test;
 
+import java.util.Scanner;
+
 public class ScoreMain
 {
+	public static void main(String[] args)
+	{
+		ScoreProcess sprc = new ScoreProcess();
+		Scanner sc = new Scanner(System.in);
+		
+		do
+		{
+			System.out.println();
+			System.out.println("====[ 성적 처리 ]====");
+			System.out.println("1. 성적 입력");
+			System.out.println("2. 성적 전체 출력 ");
+			System.out.println("3. 이름 검색 출력");
+			System.out.println("4. 성적 수정");
+			System.out.println("5. 성적 삭제");
+			System.out.println("=====================");
+			System.out.print(">> 선택(1~5, -1종료) : ");
+			String menus = sc.next();
+			
+			try
+			{
+				int menu = Integer.parseInt(menus);
+				
+				if (menu == -1)
+				{
+					System.out.println();
+					System.out.println("프로그램이 종료되었습니다.");
+					return;
+				}
+				
+				switch (menu)
+				{
+					case 1:
+						sprc.sungjikInsert();
+						break;
+					case 2:
+						sprc.sungjukSelectAll();
+						break;
+					case 3:
+						sprc.sungjukSearchName();
+						break;
+					case 4:
+						sprc.sungjukUpdate();
+						break;
+					case 5:
+						sprc.sungjukDelete();
+						break;
+
+				}
+				
+			} catch (Exception e)
+			{
+				System.out.println(e.toString());
+			}
+			
+			
+		} while (true);
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
